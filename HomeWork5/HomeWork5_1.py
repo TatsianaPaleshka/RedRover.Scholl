@@ -68,6 +68,8 @@ iso_BYN = isoCurrenciesCodes('BYN', 933, 2, 'Belarusian ruble', 'BY')
 print(f'Actual ISO currencies codes: {iso_BYN.get_iso()}')
 iso_BYN.print_iso()
 # print(iso_BYN.location)
+iso_RUB = isoCurrenciesCodes('RUB', 643, 2, 'Russian ruble', 'RU')
+iso_RUB.print_iso()
 iso_GPB = isoCurrenciesCodes('GPB', 826, 2, 'Pound sterling', 'UK')
 iso_GPB.print_iso()
 
