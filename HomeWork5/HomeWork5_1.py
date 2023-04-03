@@ -51,7 +51,7 @@ class HistoricalIso(IsoCurrenciesCodes):
         return self.__replaced_by
 
 
-class nonIso(IsoCurrenciesCodes):
+class NonIso(IsoCurrenciesCodes):
     def __init__(self, unofficial_code, alphabetic_code, numeric_code, minor_unit, currency_name, location, notes):
         super().__init__(alphabetic_code, numeric_code, minor_unit, currency_name, location)
         self.unofficial_code = unofficial_code
@@ -82,7 +82,7 @@ iso_RUR.set_from_date('1992-01-01')
 print(iso_RUR.get_historical_iso())
 
 # Non-standard codes
-non_STG = nonIso('STG', 'GPB', 826, 2, 'Sterling', 'UK', """STG stands for STerlinG, the official name of the United
+non_STG = NonIso('STG', 'GPB', 826, 2, 'Sterling', 'UK', """STG stands for STerlinG, the official name of the United
 Kingdom's currency, of which the pound is the main unit. STG conflicts with ISO 4217, because ST stands for São Tomé 
 and Príncipe.""")
 # non_STG.get_iso()
