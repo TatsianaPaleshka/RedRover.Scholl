@@ -2,7 +2,7 @@
 #     - как минимум один атрибут должен быть с уровнем доступа private. Соответственно, для получения значений этого
 #     атрибута нужно использовать методы get и set.
 
-class isoCurrenciesCodes:
+class IsoCurrenciesCodes:
     def __init__(self, alphabetic_code, numeric_code, minor_unit, currency_name, location):
         self.alphabetic_code = alphabetic_code
         self.numeric_code = numeric_code
@@ -19,7 +19,7 @@ class isoCurrenciesCodes:
               f'Minor unit = {self.minor_unit}, Currency = {self.currency_name}, Location = {self.location}')
 
 
-class historicalIso(isoCurrenciesCodes):
+class HistoricalIso(IsoCurrenciesCodes):
     def __init__(self, alphabetic_code, numeric_code, minor_unit, currency_name, location, from_date, to_date,
                  replaced_by):
         super().__init__(alphabetic_code, numeric_code, minor_unit, currency_name, location)
@@ -51,7 +51,7 @@ class historicalIso(isoCurrenciesCodes):
         return self.__replaced_by
 
 
-class nonIso(isoCurrenciesCodes):
+class nonIso(IsoCurrenciesCodes):
     def __init__(self, unofficial_code, alphabetic_code, numeric_code, minor_unit, currency_name, location, notes):
         super().__init__(alphabetic_code, numeric_code, minor_unit, currency_name, location)
         self.unofficial_code = unofficial_code
@@ -64,17 +64,17 @@ class nonIso(isoCurrenciesCodes):
 
 
 # Actual ISO currencies codes
-iso_BYN = isoCurrenciesCodes('BYN', 933, 2, 'Belarusian ruble', 'BY')
+iso_BYN = IsoCurrenciesCodes('BYN', 933, 2, 'Belarusian ruble', 'BY')
 print(f'Actual ISO currencies codes: {iso_BYN.get_iso()}')
 iso_BYN.print_iso()
 # print(iso_BYN.location)
-iso_RUB = isoCurrenciesCodes('RUB', 643, 2, 'Russian ruble', 'RU')
+iso_RUB = IsoCurrenciesCodes('RUB', 643, 2, 'Russian ruble', 'RU')
 iso_RUB.print_iso()
-iso_GPB = isoCurrenciesCodes('GPB', 826, 2, 'Pound sterling', 'UK')
+iso_GPB = IsoCurrenciesCodes('GPB', 826, 2, 'Pound sterling', 'UK')
 iso_GPB.print_iso()
 
 # Historical ISO codes
-iso_RUR = historicalIso('RUR', 810, 2, 'Russian ruble', 'RU', '1992', '1997-12-31', 'RUB')
+iso_RUR = HistoricalIso('RUR', 810, 2, 'Russian ruble', 'RU', '1992', '1997-12-31', 'RUB')
 print(iso_RUR.get_historical_iso())
 iso_RUR.print_iso()
 iso_RUR.set_from_date('1992-01-01')
