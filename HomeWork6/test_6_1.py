@@ -16,16 +16,10 @@ def open_page():
     browser.get('http://suninjuly.github.io/xpath_examples')
 
 
-def find_element_xpath(lst):
+def find_element(by, lst):
     for i in lst:
-        cat = browser.find_element(By.XPATH, i)
-        print(f'xpath: {i}, {cat.text}, {cat}')
-
-
-def find_element_css_selector(lst):
-    for i in lst:
-        cat = browser.find_element(By.CSS_SELECTOR, i)
-        print(f'css: {i}, {cat.text}, {cat}')
+        cat = browser.find_element(by, i)
+        print(f'{by}: "{i}", "{cat.text}", {cat}')
 
 
 def test_open_page():
@@ -33,8 +27,8 @@ def test_open_page():
 
 
 def test_find_element_xpath():
-    find_element_xpath(xpath_testing)
+    find_element(By.XPATH, xpath_testing)
 
 
 def test_find_element_css_selector():
-    find_element_css_selector(css_testing)
+    find_element(By.CSS_SELECTOR, css_testing)
