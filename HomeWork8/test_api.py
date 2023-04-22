@@ -7,6 +7,7 @@ endpoint_auth = '/auth'
 STATUS_OK = 200
 STATUS_OK_DELETE = 201
 STATUS_NOT_FOUND = 404
+id_first = 0
 
 
 @pytest.fixture(scope='module')
@@ -54,8 +55,12 @@ def test_user_autorization():
 
 
 def test_get_all_booking():
+    global id_first
     response = requests.get(f'{BASE_URL}{endpoint_booking}')
+    response_data = response.json()
     assert response.status_code == STATUS_OK
+    id_first = response_data[0]['bookingid']
+    print(f'\n{id_first}, {response_data}')
     print(f'\n{len(response.json())}')
     header = ('Connection', 'keep-alive')
     assert header in response.headers.items()
@@ -64,12 +69,12 @@ def test_get_all_booking():
 
 
 def test_get_booking_with_id():
-    response = requests.get(f'{BASE_URL}{endpoint_booking}/1')
+    response = requests.get(f'{BASE_URL}{endpoint_booking}/{id_first}')
     response_data = response.json()
     expected_keys = ['firstname', 'lastname', 'totalprice', 'depositpaid', 'bookingdates']
     for key in expected_keys:
         assert key in response_data.keys()
-    print(f'\n{response_data}')
+    print(f'\n{id_first} {response_data}')
 
 
 def test_create_booking():
@@ -95,7 +100,7 @@ def test_get_my_booking(id_booking):
     response = requests.get(f'{BASE_URL}{endpoint_booking}/{id_booking}')
     assert response.status_code == STATUS_OK
     assert response.json()['firstname'] == 'Jany'
-    print(f'\n{response.json()}')
+    print(f'\n{id_booking} {response.json()}')
 
 
 def test_update_booking(auth_token, id_booking):
@@ -119,7 +124,7 @@ def test_update_booking(auth_token, id_booking):
     assert response_get.status_code == STATUS_OK
     assert response_data['totalprice'] == payload['totalprice']
     assert response_data['additionalneeds'] == payload['additionalneeds']
-    print(f'\n{response_data}')
+    print(f'\n{id_booking} {response_data}')
 
 
 def test_partial_update_booking(auth_token, id_booking):
@@ -136,7 +141,7 @@ def test_partial_update_booking(auth_token, id_booking):
     assert response_get.status_code == STATUS_OK
     assert response_data['lastname'] == payload['lastname']
     assert response_data['totalprice'] == payload['totalprice']
-    print(f'\n{response_data}')
+    print(f'\n{id_booking} {response_data}')
 
 
 def test_delete_booking(auth_token, id_booking):
@@ -145,3 +150,4 @@ def test_delete_booking(auth_token, id_booking):
     assert response.status_code == STATUS_OK_DELETE
     response_get = requests.get(f'{BASE_URL}{endpoint_booking}/{id_booking}')
     assert response_get.status_code == STATUS_NOT_FOUND
+    print(f'\nDelete {id_booking}')
